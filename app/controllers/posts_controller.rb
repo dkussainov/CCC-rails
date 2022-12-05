@@ -22,6 +22,13 @@ class PostsController < ApplicationController
         render json: post, status: :created
     end
 
+    def update
+        user = User.find_by(id: session[:user_id])
+        post = user.posts.find(params[:id])
+        post.update!(post_params)
+        render json: post, status: :accepted
+    end
+
     def destroy
   
         user = User.find_by(id: session[:user_id])
@@ -39,4 +46,5 @@ class PostsController < ApplicationController
     def post_params
         params.permit(:image_url, :description)
     end
+
 end

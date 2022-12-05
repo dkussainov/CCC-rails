@@ -17,9 +17,11 @@ class CommentsController < ApplicationController
     end
 
     def destroy
+      
         user = User.find_by(id: session[:user_id])
         post = user.posts.find(params[:post_id])
-        comment = user.comments.find(params[:id])
+        # comment = user.comments.find(params[:id])
+        comment = Comment.all.find(params[:id])
         comment.destroy
         head :no_content
     end
