@@ -17,8 +17,9 @@ class PostsController < ApplicationController
     end
 
     def create
+        byebug
         user = User.find_by(id: session[:user_id])
-        post = user.posts.create!(post_params)
+        post = user.posts.create!(post_params.merge(:user_id => user.id))
         render json: post, status: :created
     end
 
@@ -44,7 +45,7 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.permit(:image_url, :description)
+        params.permit(:image_url, :description, :user_id)
     end
 
 end
