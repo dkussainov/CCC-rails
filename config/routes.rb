@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments
   post "/allcomments", to: "comments#allcomments"
-
+  resources :likes
   end
 
   get "/allposts", to: "posts#allposts"
