@@ -10,45 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_045126) do
-  create_table "comments", force: :cascade do |t|
-    t.string "text"
-    t.integer "post_id", null: false
+ActiveRecord::Schema[7.0].define(version: 2022_12_14_194857) do
+  create_table "bookings", force: :cascade do |t|
+    t.string "review"
+    t.integer "rating"
     t.integer "user_id", null: false
+    t.integer "listing_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["listing_id"], name: "index_bookings_on_listing_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
+  create_table "favorites", force: :cascade do |t|
+    t.boolean "favorite"
     t.integer "user_id", null: false
-    t.integer "post_id", null: false
+    t.integer "listing_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
+    t.index ["listing_id"], name: "index_favorites_on_listing_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.string "image_url"
+  create_table "listings", force: :cascade do |t|
+    t.string "title"
+    t.string "address"
+    t.string "city"
+    t.integer "bedroom"
+    t.integer "bathroom"
     t.string "description"
+    t.string "amenities"
+    t.float "price"
+    t.string "duration"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "name"
     t.string "username"
+    t.string "email"
     t.string "password_digest"
     t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "bio"
   end
 
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
-  add_foreign_key "likes", "posts"
-  add_foreign_key "likes", "users"
+  add_foreign_key "bookings", "listings"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "favorites", "listings"
+  add_foreign_key "favorites", "users"
 end

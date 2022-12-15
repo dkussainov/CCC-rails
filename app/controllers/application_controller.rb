@@ -1,24 +1,24 @@
 class ApplicationController < ActionController::API
-    include ActionController::Cookies
+  #   include ActionController::Cookies
   
-  rescue_from ActiveRecord::RecordInvalid, with: :invalid_input
-    rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  # rescue_from ActiveRecord::RecordInvalid, with: :invalid_input
+  #   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   
-  before_action :authorize
+  # before_action :authorize
   
-    private
+  #   private
   
-    def invalid_input(invalid)
-      render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
-    end
+  #   def invalid_input(invalid)
+  #     render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+  #   end
   
-    def authorize
-      render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
-     end
+  #   def authorize
+  #     render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
+  #    end
 
-     def not_found(error)
-        render json: {error: ["#{error.model} not found"]}, status: :not_found
-     end
+  #    def not_found(error)
+  #       render json: {error: ["#{error.model} not found"]}, status: :not_found
+  #    end
   
   end
   
